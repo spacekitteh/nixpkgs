@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, python }:
+{ stdenv, fetchurl, python, git }:
 
 stdenv.mkDerivation {
   name = "git-repo-1.23";
