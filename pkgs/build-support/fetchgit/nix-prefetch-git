@@ -11,6 +11,7 @@ leaveDotGit=$NIX_PREFETCH_GIT_LEAVE_DOT_GIT
 fetchSubmodules=
 builder=
 branchName=$NIX_PREFETCH_GIT_BRANCH_NAME
+mirror=
 
 # ENV params
 out=${out:-}
@@ -34,6 +35,13 @@ else
     leaveDotGit=true
 fi
 
+if test -n "$mirror"; then
+    mirror=true
+    leaveDotGit=
+else
+    mirror=false
+fi
+
 usage(){
     echo  >&2 "syntax: nix-prefetch-git [options] [URL [REVISION [EXPECTED-HASH]]]
 
@@ -47,6 +55,7 @@ Options:
       --leave-dotGit  Keep the .git directories.
       --fetch-submodules Fetch submodules.
       --builder       Clone as fetchgit does, but url, rev, and out option are mandatory.
+      --mirror        Creates a mirror of the source repository.
 "
     exit 1
 }
@@ -67,6 +76,7 @@ for arg; do
             --leave-dotGit) leaveDotGit=true;;
             --fetch-submodules) fetchSubmodules=true;;
             --builder) builder=true;;
+            --mirror) mirror=true;;
             --help) usage; exit;;
             *)
                 : $((++argi))
