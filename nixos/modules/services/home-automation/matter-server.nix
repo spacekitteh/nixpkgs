@@ -106,6 +106,7 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         RestrictAddressFamilies = [
+          "AF_BLUETOOTH"
           "AF_INET"
           "AF_INET6"
           "AF_NETLINK"
